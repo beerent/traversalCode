@@ -1,13 +1,16 @@
-package subClasses;
-
 import java.io.File;
-import java.util.ArrayList;
+import java.util.Array List;
 
+/*The class Dirtrav (Directory Traversal) will recursively search through a specified directory, searching for files that
+ *match the String target.
+*/
 public class Dirtrav {
 	public String directory;
-	public File currentDir;
-	private ArrayList<File> possibleFiles;
+	public File currentDir; //
+	private ArrayList<File> possibleFiles; //ArrayList of matched target files.
 	
+	//Constructor
+	//Sets directory to the passed in location, Appends ~ to the home user.
 	public Dirtrav(String directory){
 		this.directory = directory;
 		currentDir = new File(System.getProperty("user.home") + directory);
@@ -50,12 +53,22 @@ public class Dirtrav {
 		}
 	}
 	
+	//Returns: the current directory, as a File.
 	public File getDir(){
 		return currentDir;
 	}
 	
+	public void usage(){
+		System.out.println("Error: Requires one parameter; the location of the directory youd like to run" + 
+		" this program in, FROM, BUT NOT INCLUDING YOUR HOME FOLDER. EX.  /Documents/music/  The ~ is appended" +
+		" on for you");
+		System.exit(1);
+	}
+	
+	//
 	public static void main(String [] args){
-		Dirtrav dtrv = new Dirtrav("/Documents/website");
+		if(args.length != 1) usage();
+		Dirtrav dtrv = new Dirtrav(args[0]);
 		dtrv.traverseGrab("index", dtrv.getDir());
 		System.out.println("done");
 	}
